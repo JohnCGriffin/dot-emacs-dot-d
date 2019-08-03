@@ -76,4 +76,4 @@
 (global-set-key (kbd "C-x 8 l") (lambda () (interactive) (insert "λ")))
 (global-set-key (kbd "C-x 8 p") (lambda () (interactive) (insert "∝")))
 
-(load-theme 'manoj-dark t)
+(load-theme 'misterioso t)
