@@ -4,7 +4,6 @@
 (setq MY-FAVORITE-THEME 'dorsey)
 
 (setq make-backup-files nil
-      inferior-lisp-program "/usr/bin/sbcl"
       auto-save-default nil
       inhibit-startup-screen t
       ring-bell-function 'ignore
