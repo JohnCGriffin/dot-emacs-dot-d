@@ -7,7 +7,9 @@
       auto-save-default nil
       inhibit-startup-screen t
       ring-bell-function 'ignore
-      tab-width 4)
+      tab-width 4
+      c-base-indent 4
+      indent-tabs-mode nil)
 
 (menu-bar-mode -1)
 
@@ -16,13 +18,6 @@
 (load-theme MY-FAVORITE-THEME t)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
-
-;; user's PATH and GOPATH when run in GUI
-;; (when (memq window-system '(mac ns))
-;;   (exec-path-from-shell-initialize)
-;;   (exec-path-from-shell-copy-env "GOPATH"))
-
-
 
 ;; PACKAGE Setup should be run only when needed
 
@@ -71,35 +66,6 @@
 	    (setq flycheck-gcc-language-standard "c11")
 	    (flycheck-mode 1)))
 
-;; GO
-(add-hook 'go-mode-hook
-	  (lambda () 
-	    (require 'go-guru)
-	    (require 'go-rename)
-	    (require 'go-autocomplete)
-	    (require 'auto-complete-config)
-	    (auto-complete-mode 1)
-	    (ac-config-default)
-	    (add-hook 'before-save-hook 'gofmt-before-save) ; gofmt before every save
-	    (setq gofmt-command "goimports")                ; gofmt uses invokes goimports
-	    (if (not (string-match "go" compile-command))   ; set compile command default
-		(set (make-local-variable 'compile-command)
-		     "go build -v && go test -v && go vet"))
-
-	    ;; Key bindings specific to go-mode
-	    (local-set-key (kbd "M-.") 'godef-jump)         ; Go to definition
-	    (local-set-key (kbd "M-*") 'pop-tag-mark)       ; Return from whence you came
-	    (flycheck-mode 1)
-	    (setq tab-width 4)
-
-	    ;(auto-complete-mode 1)
-	    (go-guru-hl-identifier-mode)))
-
-
-;; If not placed here like this... no GO 
-(with-eval-after-load 'go-mode
-  (require 'go-autocomplete))
-
 ;; EDIFF  does not work well with these colors.
 ;; ediff is good for side-by-side
 (add-hook 'ediff-before-setup-hook
@@ -133,10 +99,17 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("b273cc6a1d492660fff886a3cae1f00d5fd2d53b55fb374a21a14afd74fdec92" "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" "346830cc18f4ff0c60553370158e66ade15833cf13b05ae5aa8e84c3138c7880" "a1e99cb36d6235abbe426a0a96fc26c006306f6b9d2a64c2435363350a987b4c" default)))
+    ("b273cc6a1d492660fff886a3cae1f00d5fd2d53b55fb374a21a14afd74fdec92" 
+     "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" 
+     "346830cc18f4ff0c60553370158e66ade15833cf13b05ae5aa8e84c3138c7880" 
+     "a1e99cb36d6235abbe426a0a96fc26c006306f6b9d2a64c2435363350a987b4c" 
+     default)))
  '(package-selected-packages
    (quote
-    (rust-mode flycheck-rust rjsx-mode yasnippet yasnippet-classic-snippets simplezen web-mode utop merlin merlin-eldoc elm-mode paredit go-complete go-guru go-imports go-rename yaml-mode tuareg sml-mode slime racket-mode neotree magit go-mode go-autocomplete flymake-go flycheck exec-path-from-shell cider))))
+    (rust-mode flycheck-rust rjsx-mode yasnippet yasnippet-classic-snippets 
+	       simplezen web-mode utop merlin merlin-eldoc elm-mode paredit 
+	       yaml-mode tuareg sml-mode slime racket-mode neotree magit 
+	       flycheck exec-path-from-shell cider))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
