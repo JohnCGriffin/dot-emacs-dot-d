@@ -1,7 +1,7 @@
 
 ;; GLOBALS
 
-(setq MY-FAVORITE-THEME 'dorsey)
+(setq MY-FAVORITE-THEME 'moodydarkvim)
 
 (setq make-backup-files nil
       auto-save-default nil
