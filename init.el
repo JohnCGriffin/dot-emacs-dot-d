@@ -1,8 +1,6 @@
 
 ;; GLOBALS
 
-(setq MY-FAVORITE-THEME 'moodydarkvim)
-
 (setq make-backup-files nil
       auto-save-default nil
       inhibit-startup-screen t
@@ -12,10 +10,6 @@
       indent-tabs-mode nil)
 
 (menu-bar-mode -1)
-
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-
-(load-theme MY-FAVORITE-THEME t)
 
 (add-to-list 'load-path "~/.emacs.d/lisp/")
 
@@ -29,16 +23,6 @@
   (package-initialize)
   (message "melpa added and package-initialize called"))
 
-(add-hook 'tuareg-mode-hook 'tuareg-imenu-set-imenu)
-(setq auto-mode-alist
-      (append '(("\\.ml[ily]?$" . tuareg-mode)
-                ("\\.topml$" . tuareg-mode))
-              auto-mode-alist))
-(autoload 'utop-minor-mode "utop" "Toplevel for OCaml" t)
-(add-hook 'tuareg-mode-hook 'utop-minor-mode)
-(add-hook 'tuareg-mode-hook 'merlin-mode)
-(setq merlin-use-auto-complete-mode t)
-(setq merlin-error-after-save nil)
 
 
 ;; Markdown
@@ -92,27 +76,4 @@
 (global-set-key (kbd "C-x 8 l") (lambda () (interactive) (insert "λ")))
 (global-set-key (kbd "C-x 8 p") (lambda () (interactive) (insert "∝")))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-safe-themes
-   (quote
-    ("b273cc6a1d492660fff886a3cae1f00d5fd2d53b55fb374a21a14afd74fdec92" 
-     "b3775ba758e7d31f3bb849e7c9e48ff60929a792961a2d536edec8f68c671ca5" 
-     "346830cc18f4ff0c60553370158e66ade15833cf13b05ae5aa8e84c3138c7880" 
-     "a1e99cb36d6235abbe426a0a96fc26c006306f6b9d2a64c2435363350a987b4c" 
-     default)))
- '(package-selected-packages
-   (quote
-    (rust-mode flycheck-rust rjsx-mode yasnippet yasnippet-classic-snippets 
-	       simplezen web-mode utop merlin merlin-eldoc elm-mode paredit 
-	       yaml-mode tuareg sml-mode slime racket-mode neotree magit 
-	       flycheck exec-path-from-shell cider))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(load-theme 'manoj-dark t)
