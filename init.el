@@ -7,6 +7,7 @@
       ring-bell-function 'ignore
       tab-width 4
       c-base-indent 4
+      c-basic-offset 4
       indent-tabs-mode nil)
 
 (menu-bar-mode -1)
