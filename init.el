@@ -2,7 +2,7 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
-(setq package-archives '(("melpa" . "http://stable.melpa.org/packages/")))
+(setq package-archives '(("melpa" . "http://melpa.org/packages/")))
 (package-initialize)
 
 
@@ -15,6 +15,7 @@
        (package-refresh-contents)
        (package-install (quote ,name))))
 
+  (conditional-install racket-mode)
   (conditional-install markdown-mode)
   (conditional-install flycheck)
   (conditional-install go-mode)
@@ -42,6 +43,7 @@
 	    (lambda () 
 	      (setq flycheck-clang-language-standard "c++17")
 	      (setq flycheck-gcc-language-standard "c++17")
+	      (company-mode 1)
 	      (flycheck-mode 1)))
 
   ;; C
