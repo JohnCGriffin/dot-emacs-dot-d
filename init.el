@@ -15,6 +15,8 @@
        (package-refresh-contents)
        (package-install (quote ,name))))
 
+  (conditional-install magit)
+  (conditional-install rust-mode)
   (conditional-install racket-mode)
   (conditional-install markdown-mode)
   (conditional-install flycheck)
@@ -62,6 +64,8 @@
   (add-to-list 'load-path "~/.emacs.d/lisp/")
   (load-theme 'misterioso t)
 
+  (global-set-key (kbd "C-x g") 'magit-status)
+
   (setq make-backup-files nil
 	auto-save-default nil
 	inhibit-startup-screen t
@@ -84,7 +88,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (markdown-mode company-go flycheck go-mode use-package))))
+    (magit git markdown-mode company-go flycheck go-mode use-package))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

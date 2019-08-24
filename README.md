@@ -16,6 +16,7 @@ vc-diff or vc-ediff for git diff
 
 flycheck-verify-setup
 
+"C-x g" -> magit-status (q to quit)
 --------- GO --------
 
 	M-> jump in
