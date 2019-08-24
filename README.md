@@ -14,11 +14,15 @@ paren matching C-M-n and p like % in vi
 
 vc-diff or vc-ediff for git diff
 
+flycheck-verify-setup
+
 --------- GO --------
 
 	M-> jump in
 	M-< jump out
 
+NOTE that go-mode is a mess with "go-vet" in GO 1.12.
+	 Stay with 1.11 until go-mode / go-vet catch up.
 
 
 

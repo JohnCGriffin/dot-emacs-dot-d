@@ -26,7 +26,8 @@
 ;; Major mode hooks
 
 (progn
-  
+
+  ;; GO
   (add-hook 'go-mode-hook
 	    (lambda ()
 	      (setq-local gofmt-command "goimports")
@@ -66,6 +67,9 @@
 	tab-width 4
 	c-base-indent 4
 	c-basic-offset 4
+	python-indent-offset 4
+	python-indent-guess-indent-offset t
+	python-indent-guess-indent-offset-verbose nil
 	indent-tabs-mode nil))
 
 
