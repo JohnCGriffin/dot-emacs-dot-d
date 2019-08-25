@@ -2,7 +2,7 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
-(setq package-archives '(("melpa" . "http://melpa.org/packages/")))
+(setq package-archives '(("melpa" . "https://stable.melpa.org/packages/")))
 (package-initialize)
 
 
@@ -17,7 +17,6 @@
 
   (conditional-install magit)
   (conditional-install rust-mode)
-  (conditional-install racket-mode)
   (conditional-install markdown-mode)
   (conditional-install flycheck)
   (conditional-install go-mode)
