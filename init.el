@@ -45,7 +45,6 @@
 	    (lambda () 
 	      (setq flycheck-clang-language-standard "c++17")
 	      (setq flycheck-gcc-language-standard "c++17")
-	      (company-mode 1)
 	      (flycheck-mode 1)))
 
   ;; C
