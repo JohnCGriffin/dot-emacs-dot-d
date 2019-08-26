@@ -17,10 +17,11 @@
      (package-install (quote ,name))))
 
 (progn
-  (conditional-install cider)
-  (conditional-install magit)
+  (unless (version<= emacs-version "25.3") ; as in Centos 7
+    (conditional-install cider)
+    (conditional-install magit)
+    (conditional-install markdown-mode))
   (conditional-install rust-mode)
-  (conditional-install markdown-mode)
   (conditional-install flycheck)
   (conditional-install go-mode)
   (conditional-install company)
