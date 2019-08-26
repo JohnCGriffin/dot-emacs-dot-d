@@ -2,7 +2,9 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")))
+(setq package-archives
+      '(("gnu" . "http://elpa.gnu.org/packages/")
+	("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
 
@@ -15,6 +17,7 @@
      (package-install (quote ,name))))
 
 (progn
+  (conditional-install cider)
   (conditional-install magit)
   (conditional-install rust-mode)
   (conditional-install markdown-mode)
@@ -88,7 +91,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (magit git markdown-mode company-go flycheck go-mode use-package))))
+    (cider magit git markdown-mode company-go flycheck go-mode use-package))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
