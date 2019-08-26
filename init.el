@@ -2,19 +2,19 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
-(setq package-archives '(("melpa" . "https://stable.melpa.org/packages/")))
+(setq package-archives '(("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
 
 ;; Conditional installations
 
+
+(defmacro conditional-install (name)
+  `(unless (package-installed-p (quote ,name))
+     (package-refresh-contents)
+     (package-install (quote ,name))))
+
 (progn
-
-  (defmacro conditional-install (name)
-    `(unless (package-installed-p (quote ,name))
-       (package-refresh-contents)
-       (package-install (quote ,name))))
-
   (conditional-install magit)
   (conditional-install rust-mode)
   (conditional-install markdown-mode)
