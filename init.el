@@ -41,7 +41,7 @@
 	      (local-set-key (kbd "M-<") 'pop-tag-mark)))
   ;; C++
   (add-hook 'c++-mode-hook
-	    (lambda () 
+	    (lambda ()
 	      (setq flycheck-clang-language-standard "c++17")
 	      (setq flycheck-gcc-language-standard "c++17")
 	      (flycheck-mode 1)))
@@ -57,12 +57,14 @@
 ;; Basics
 
 (progn
-  
+
   (menu-bar-mode -1)
   (add-to-list 'load-path "~/.emacs.d/lisp/")
   (load-theme 'misterioso t)
 
   (global-set-key (kbd "C-x g") 'magit-status)
+
+  (fset 'yes-or-no-p 'y-or-n-p)
 
   (setq make-backup-files nil
 	auto-save-default nil
