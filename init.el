@@ -24,6 +24,7 @@
   (conditional-install rust-mode)
   (conditional-install flycheck)
   (conditional-install go-mode)
+  (conditional-install go-rename)
   (conditional-install company)
   (conditional-install company-go))
 
@@ -41,8 +42,8 @@
 	      (add-hook 'before-save-hook 'gofmt-before-save nil t)
 	      (company-mode)
 	      (flycheck-mode 1)
-	      (local-set-key (kbd "M->") 'godef-jump)
-	      (local-set-key (kbd "M-<") 'pop-tag-mark)))
+	      (local-set-key (kbd "M-.") 'godef-jump)
+	      (local-set-key (kbd "M-,") 'pop-tag-mark)))
   ;; C++
   (add-hook 'c++-mode-hook
 	    (lambda ()
@@ -92,7 +93,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (cider magit git markdown-mode company-go flycheck go-mode use-package))))
+    (go-rename cider magit git markdown-mode company-go flycheck go-mode use-package))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
