@@ -18,7 +18,7 @@
 
 (progn
   (unless (version<= emacs-version "25.3") ; as in Centos 7
-    (conditional-install cider)
+    ;(conditional-install cider)
     (conditional-install magit)
     (conditional-install markdown-mode))
   (conditional-install rust-mode)
