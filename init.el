@@ -7,9 +7,6 @@
 	("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
-;(require 'use-package)
-
-
 ;; Conditional installations
 
 
