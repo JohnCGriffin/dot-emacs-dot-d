@@ -7,7 +7,7 @@
 	("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
-(require 'use-package)
+;(require 'use-package)
 
 
 ;; Conditional installations
@@ -26,6 +26,7 @@
   (conditional-install go-mode)
   (conditional-install rust-mode)
   (conditional-install flycheck)
+  (conditional-install lsp-python-ms)
   (conditional-install company))
 
 (progn
@@ -33,6 +34,11 @@
   (add-hook 'go-mode-hook 'lsp)
 
   (add-hook 'rust-mode-hook 'lsp)
+
+  (add-hook 'python-mode-hook
+	    (lambda ()
+	      (require 'lsp-python-ms)
+	      (lsp)))
 
   ;; C++
   (add-hook 'c++-mode-hook
@@ -72,7 +78,4 @@
 	python-indent-guess-indent-offset t
 	python-indent-guess-indent-offset-verbose nil
 	indent-tabs-mode nil))
-
-
-
 
