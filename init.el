@@ -65,7 +65,7 @@
 
   (menu-bar-mode -1)
   (add-to-list 'load-path "~/.emacs.d/lisp/")
-  (load-theme 'misterioso t)
+  (load-theme 'wombat t)
 
   (global-set-key (kbd "C-x g") 'magit-status)
 
