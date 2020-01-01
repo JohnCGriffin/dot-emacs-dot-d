@@ -40,19 +40,9 @@
 	      (require 'lsp-python-ms)
 	      (lsp)))
 
-  ;; C++
-  (add-hook 'c++-mode-hook
-	    (lambda ()
-	      (setq flycheck-clang-language-standard "c++17")
-	      (setq flycheck-gcc-language-standard "c++17")
-	      (flycheck-mode 1)))
+  (add-hook 'c++-mode-hook 'lsp)
 
-  ;; C
-  (add-hook 'c-mode-hook
-	    (lambda ()
-	      (setq flycheck-clang-language-standard "c11")
-	      (setq flycheck-gcc-language-standard "c11")
-	      (flycheck-mode 1))))
+  (add-hook 'c-mode-hook 'lsp))
 
 
 ;; Basics
