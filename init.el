@@ -7,6 +7,8 @@
 	("melpa" . "https://melpa.org/packages/")))
 (package-initialize)
 
+(require 'use-package)
+
 
 ;; Conditional installations
 
@@ -18,32 +20,20 @@
 
 (progn
   (unless (version<= emacs-version "25.3") ; as in Centos 7
-    ;(conditional-install cider)
     (conditional-install magit)
     (conditional-install markdown-mode))
+  (conditional-install lsp-mode)
+  (conditional-install go-mode)
   (conditional-install rust-mode)
   (conditional-install flycheck)
-  (conditional-install go-mode)
-  (conditional-install go-rename)
-  (conditional-install company)
-  (conditional-install company-go))
-
-
-
-;; Major mode hooks
+  (conditional-install company))
 
 (progn
 
-  ;; GO
-  (add-hook 'go-mode-hook
-	    (lambda ()
-	      (setq-local gofmt-command "goimports")
-	      (setq-local company-backends '(company-go))
-	      (add-hook 'before-save-hook 'gofmt-before-save nil t)
-	      (company-mode)
-	      (flycheck-mode 1)
-	      (local-set-key (kbd "M-.") 'godef-jump)
-	      (local-set-key (kbd "M-,") 'pop-tag-mark)))
+  (add-hook 'go-mode-hook 'lsp)
+
+  (add-hook 'rust-mode-hook 'lsp)
+
   ;; C++
   (add-hook 'c++-mode-hook
 	    (lambda ()
@@ -86,18 +76,3 @@
 
 
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (go-rename cider magit git markdown-mode company-go flycheck go-mode use-package))))
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
