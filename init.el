@@ -2,6 +2,7 @@
 (require 'package)
 
 (setq package-enable-at-startup nil)
+(setq package-check-signature nil)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
 	("melpa" . "https://melpa.org/packages/")))
