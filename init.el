@@ -38,7 +38,10 @@
 	      (require 'lsp-python-ms)
 	      (lsp)))
 
-  (add-hook 'c++-mode-hook 'lsp)
+  (add-hook 'c++-mode-hook 
+	(lambda ()
+		(setq lsp-enable-on-type-formatting nil)
+		(lsp-mode)))
 
   (add-hook 'c-mode-hook 'lsp))
 
