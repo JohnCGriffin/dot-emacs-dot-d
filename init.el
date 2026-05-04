@@ -1,72 +1,111 @@
 
-(require 'package)
-
-(setq package-enable-at-startup nil)
-(setq package-check-signature nil)
-(setq package-archives
-      '(("gnu" . "http://elpa.gnu.org/packages/")
-	("melpa" . "https://melpa.org/packages/")))
-(package-initialize)
-
-;; Conditional installations
+;;(progn ;for vterm installation
+;; (require 'package)
+;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+;; (package-initialize))
 
 
-(defmacro conditional-install (name)
-  `(unless (package-installed-p (quote ,name))
-     (package-refresh-contents)
-     (package-install (quote ,name))))
 
-(progn
-  (unless (version<= emacs-version "25.3") ; as in Centos 7
-    (conditional-install magit)
-    (conditional-install markdown-mode))
-  (conditional-install lsp-mode)
-  (conditional-install go-mode)
-  (conditional-install rust-mode)
-  (conditional-install flycheck)
-  (conditional-install lsp-python-ms)
-  (conditional-install company))
+;; Show full backtraces during init
+(setq debug-on-error t)
 
-(progn
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (setq debug-on-error nil)))
 
-  (add-hook 'go-mode-hook 'lsp)
+(setq use-package-always-ensure t)
+(setq use-package-verbose t)
 
-  (add-hook 'rust-mode-hook 'lsp)
-
-  (add-hook 'python-mode-hook
-	    (lambda ()
-	      (require 'lsp-python-ms)
-	      (lsp)))
-
-  (add-hook 'c++-mode-hook 
-	(lambda ()
-		(setq lsp-enable-on-type-formatting nil)
-		(lsp-mode)))
-
-  (add-hook 'c-mode-hook 'lsp))
+;(prefer-coding-system 'utf-8-unix)
+(setq-default buffer-file-coding-system 'utf-8-unix)
 
 
-;; Basics
-
+					; general editing
 (progn
 
   (menu-bar-mode -1)
-  (add-to-list 'load-path "~/.emacs.d/lisp/")
-  (load-theme 'wombat t)
 
-  (global-set-key (kbd "C-x g") 'magit-status)
+  (unless (or (display-graphic-p)
+	      (getenv "TMUX"))
+    (when (string-match "xterm" (tty-type))
+      (set-display-table-slot standard-display-table 'vertical-border (make-glyph-code ?│))
+      (mouse-wheel-mode 1)
+      (xterm-mouse-mode 1)))
+
+  (load-theme 'wombat)
 
   (fset 'yes-or-no-p 'y-or-n-p)
 
   (setq make-backup-files nil
 	auto-save-default nil
 	inhibit-startup-screen t
-	ring-bell-function 'ignore
+	visible-bell t
 	tab-width 4
-	c-base-indent 4
+	indent-tabs-mode nil)
+
+  (global-set-key [remap list-buffers] 'ibuffer)
+  (put 'upcase-region 'disabled nil)
+  (put 'downcase-region 'disabled nil))
+
+
+					; programming
+(progn 
+
+  (setq c-base-indent 4
 	c-basic-offset 4
 	python-indent-offset 4
 	python-indent-guess-indent-offset t
-	python-indent-guess-indent-offset-verbose nil
-	indent-tabs-mode nil))
+	python-indent-guess-indent-offset-verbose nil)
 
+  (setq eglot-hooks
+	'(c-mode-hook
+	  go-mode-hook
+	  c++-mode-hook
+	  python-mode-hook
+	  rust-mode-hook
+	  c-or-c++-mode-hook
+	  racket-mode
+	  ))
+
+  (dolist (sym eglot-hooks)
+    (add-hook sym 'eglot-ensure)
+    (add-hook sym 'company-mode))
+
+  (add-hook 'eglot-managed-mode-hook
+	    (lambda () (eglot-inlay-hints-mode -1))))
+
+
+
+
+;; (defun my/indent-or-format-region (beg end)
+;;   "Use eglot-format or eglot-format-buffer if available, else indent-region."
+;;   (interactive "r")
+;;   (if (and (bound-and-true-p eglot--managed-mode)
+;;            (eglot-current-server))
+;;       (if (use-region-p)
+;;           (eglot-format beg end)       ;; format just the region
+;;         (eglot-format-buffer))         ;; or whole buffer if no region
+;;     (indent-region beg end)))
+
+;; ;; Replace the default binding of C-M-\
+;; (global-set-key [remap indent-region] #'my/indent-or-format-region)
+
+					;(xterm-mouse-mode)
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(company eglot eldoc geiser-chicken go-mode haskell-mode racket-mode
+	     rust-mode vterm yasnippet-classic-snippets
+	     yasnippet-snippets)))
+
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
