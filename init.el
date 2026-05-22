@@ -4,7 +4,10 @@
 ;; (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 ;; (package-initialize))
 
-
+;(add-to-list 'load-path "~/.opam/default/share/emacs/site-lisp")
+(add-to-list 'load-path "/Users/griffin/.opam/ocaml-base-compiler.5.4.1/share/emacs/site-lisp")
+(require 'ocp-indent)
+(add-hook 'tuareg-mode-hook #'ocp-indent-caml-mode-setup)
 
 ;; Show full backtraces during init
 (setq debug-on-error t)
@@ -45,7 +48,12 @@
 
   (global-set-key [remap list-buffers] 'ibuffer)
   (put 'upcase-region 'disabled nil)
-  (put 'downcase-region 'disabled nil))
+  (put 'downcase-region 'disabled nil)
+
+  (defun my/new-vterm ()
+    (interactive)
+    (vterm (generate-new-buffer-name "*vterm*")))
+  (global-set-key (kbd "C-c t") #'my/new-vterm))
 
 
 					; programming
@@ -64,10 +72,12 @@
 	  python-mode-hook
 	  rust-mode-hook
 	  c-or-c++-mode-hook
-	  racket-mode
+	  racket-mode-hook
+	  tuareg-mode-hook
 	  ))
 
   (dolist (sym eglot-hooks)
+    (add-hook 'before-save-hook #'eglot-format-buffer)
     (add-hook sym 'eglot-ensure)
     (add-hook sym 'company-mode))
 
@@ -100,7 +110,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    '(company eglot eldoc geiser-chicken go-mode haskell-mode racket-mode
-	     rust-mode vterm yasnippet-classic-snippets
+	     rust-mode tuareg vterm yasnippet-classic-snippets
 	     yasnippet-snippets)))
 
 (custom-set-faces
